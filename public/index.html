@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./styles/output.css" rel="stylesheet">
+    <title>Link Shortener</title>
+</head>
+<body class="flex flex-col justify-center w-screen">
+    
+    <div id="link-creator" class="flex justify-center bg-red-50 py-5">
+        <form id="link-form" name="link-form" class="w-80" >
+            <div class="flex flex-col justify-center">
+                <label for="link-input">URL</label>
+                <input type="text" name="URL" id="link-input" class="border-2 border-slate-300">
+            </div>
+            <div class="flex flex-col justify-center">
+                <label for="title-input">Título</label>
+                <input type="text" name="title" id="title-input" class="border-2 border-slate-300">
+            </div>
+            <div class="flex pt-5 justify-between items-center">
+                <button id="link-submit" type="submit" class="bg-emerald-500 p-2 text-white rounded-lg">Criar URL</button>
+                <div class="flex flex-row-reverse gap-2">
+                <input type="number" title="number" id="limit-input" name="limit" class="border-2 border-slate-300 w-14 py-1.5 text-center" min="0" disabled>
+                <div class="flex space-x-2 items-center">
+                    <label for="used-checkbox">Limite de uso</label>
+                    <input type="checkbox" name="used" id="used-checkbox" >
+                </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="./scripts/script.js"></script>
+</body>
+</html>
