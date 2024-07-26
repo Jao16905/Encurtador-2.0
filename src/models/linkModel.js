@@ -6,7 +6,8 @@ const linkSchema = new mongoose.Schema({
     title: {type:String, default:""},
     used: {type:Boolean, default: false},
     count: {type: Number, default: 0},
-    limit: {type: Number, default: 0}
+    limit: {type: Number, default: 0},
+    creator: {type: mongoose.Types.ObjectId, default:""}
 })
 
 module.exports = mongoose.model("Link", linkSchema)

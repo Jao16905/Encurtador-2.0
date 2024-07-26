@@ -70,11 +70,11 @@ const updateLink = async (req,res) =>{
         URL: req.body.URL 
       };
       
-      if (req.body.title && req.body.title !== "") {
+      if (req.body.title !== "") {
         updateData.title = req.body.title;
-      }else if(req.body.URL && req.body.URL !== ""){
+      }else if(req.body.URL !== ""){
         updateData.URL = req.body.URL;
-      }else if(req.body.limit && req.body.limit !== 0){
+      }else if(req.body.limit !== 0){
         updateData.limit = req.body.limit;
       }
       try{
