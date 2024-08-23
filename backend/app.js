@@ -16,9 +16,6 @@ app.use("/auth", loginRoutes);
 
 app.use("/user", userRoutes);
 
-app.use("/", express.static(path.join(__dirname, 'public')));
-
-app.use("/", express.static(path.join(__dirname, 'public/pages')))
 
 db.once('open', () =>{app.listen(process.env.PORT, () =>{
     console.log("Server oppened on port", process.env.PORT)

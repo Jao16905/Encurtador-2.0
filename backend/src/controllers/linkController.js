@@ -1,5 +1,5 @@
 const linkSchema = require("../models/linkModel");
-const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
 
 const redirect = async (req,res) =>{
 
@@ -38,6 +38,8 @@ const createLink = async (req,res) =>{
     try{
     let allLinks = await linkSchema.find({title: req.body.title});
 
+    const userID = req.body.token ? jwt.verify(req.body.token, process.env.TOKEN_SECRET).payload.id : "";
+
     try{
         new URL(req.body.URL);
     }catch(e){
@@ -46,7 +48,7 @@ const createLink = async (req,res) =>{
 
     if(!(allLinks.length > 0)){
         
-        let link = new linkSchema({title: req.body.title, URL: req.body.URL, limit: req.body.limit});
+        let link = new linkSchema({title: req.body.title, URL: req.body.URL, limit: req.body.limit, creator: userID});
 
         link.newURL = (req.body.title != "" ? `${process.env.DEFAULT_URL}/${req.body.title}` : `${process.env.DEFAULT_URL}/${link._id}`)
 
@@ -54,7 +56,7 @@ const createLink = async (req,res) =>{
 
         console.log(link)
 
-        return res.status(200).send(link);
+        return res.status(200).send(link.newURL);
 
     }else{
         return res.status(400).send("Link já existe")
@@ -95,6 +97,25 @@ const updateLink = async (req,res) =>{
     }
 
 }
+
+const getAllLinks = async (req,res) =>{
+
+    const userID = jwt.verify(req.body.token, process.env.TOKEN_SECRET).payload.id; 
+
+    try{
+
+    let allLinks = await linkSchema.find({creator: userID});
+      
+    
+    if(allLinks > 0){
+        res.status(200).send(allLinks)
+    }
+    }catch(e){
+        res.status(400).send(e)
+    }
+
+}
+
 const deleteLink = async (req,res) =>{
 
     try{
@@ -108,4 +129,4 @@ const deleteLink = async (req,res) =>{
 
 }
 
-module.exports = {createLink, updateLink, redirect, deleteLink}
+module.exports = {createLink, updateLink, redirect, deleteLink, getAllLinks}

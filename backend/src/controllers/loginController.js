@@ -16,7 +16,7 @@ const userController = {
 
         try{
             await user.save();
-            const token = jwt.sign({id: selectedUser._id, name:selectedUser.name, email: selectedUser.email}, process.env.TOKEN_SECRET, {expiresIn: 3600});
+            const token = jwt.sign({id: user._id, name:user.name, email: user.email}, process.env.TOKEN_SECRET, {expiresIn: 7200});
 
             res.header("authorization-token", token);
             res.send("User Logged");
